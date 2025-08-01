@@ -8,6 +8,7 @@ public enum TimeState
 
 public class DayNightCycle : MonoBehaviour
 {
+    int dayCount = 1;
     [SerializeField] TimeState state = TimeState.Day;
     [SerializeField] GameObject stateVisual;
 
@@ -15,9 +16,17 @@ public class DayNightCycle : MonoBehaviour
     void Update()
     {
         StateVisualize();
-        if(Input.GetKey(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.E))
         {
-
+            switch(state)
+            {
+                case TimeState.Day:
+                    EndDay(); 
+                    break;
+                case TimeState.Night:
+                    EndNight();
+                    break;
+            }
         }
     }
 
@@ -42,5 +51,8 @@ public class DayNightCycle : MonoBehaviour
     void EndNight()
     {
         state = TimeState.Day;
+        dayCount++;
     }
+
+    public int GetDay() => dayCount;
 }

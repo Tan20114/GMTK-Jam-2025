@@ -21,7 +21,7 @@ public class hamter : MonoBehaviour
         get => ap;
         set
         {
-            ap = Mathf.Clamp(value, 0, 99);
+            ap = Mathf.Clamp(value, 0, 3);
             onStatChanged?.Invoke();
         }
     }

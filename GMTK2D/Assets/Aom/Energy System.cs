@@ -28,6 +28,11 @@ public class EnergySystemUI : MonoBehaviour
         currentEnergy += amount;
         currentEnergy = Mathf.Clamp(currentEnergy, 0f, maxEnergy);
     }
+    public void RemoveEnergy(float amount)
+    {
+        currentEnergy -= amount;
+        currentEnergy = Mathf.Clamp(currentEnergy, 0f, maxEnergy);
+    }
 
     // ฟังก์ชันสำหรับดึงค่าพลังงานปัจจุบัน
     public float GetEnergy()

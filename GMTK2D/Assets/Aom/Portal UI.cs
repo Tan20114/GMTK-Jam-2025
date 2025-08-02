@@ -58,13 +58,13 @@ public class PortalUI : MonoBehaviour
             // อัปเดต Progress Bar
             if (progressBar != null)
             {
-                progressBar.value = portalManager.currentCP/currentPhaseData.requiredCP;
+                progressBar.value = player.CP/currentPhaseData.requiredCP;
             }
 
             // อัปเดต Text ของ CP
             if (cpText != null)
             {
-                cpText.text = $"{portalManager.currentCP} / {currentPhaseData.requiredCP} CP";
+                cpText.text = $"{player.CP} / {currentPhaseData.requiredCP} CP";
             }
 
             // อัปเดต Text ของ Phase

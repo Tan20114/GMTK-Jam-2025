@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class hamter : MonoBehaviour
 {
+    PortalManager pm => FindAnyObjectByType<PortalManager>();
+    EnergySystemUI es => FindAnyObjectByType<EnergySystemUI>(); 
 
     [SerializeField] int cp;
     public int CP
@@ -38,8 +41,6 @@ public class hamter : MonoBehaviour
     public delegate void OnStatChanged();
     public event OnStatChanged onStatChanged;
 
-    private Coroutine susCoroutine = null;
-
     private void Update()
     {
         SUSFull();
@@ -68,9 +69,21 @@ public class hamter : MonoBehaviour
     {
         if(SUS >= 100)
         {
-            Debug.Log("reset");
+            if(pm.currentPhase > 0)
+            {
+                if(!es.IsEnergyFull())
+                {
+                    if(CP >= 10)
+                        CP -= 10;
+                    else
+                        pm.currentPhase--;
+                }
+                else
+                {
+                    es.RemoveEnergy(es.GetEnergy());
+                }
+            }
             SUS = 0;
-            CP -= 10;
         }
     }
 }

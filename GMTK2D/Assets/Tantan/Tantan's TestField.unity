@@ -2580,9 +2580,17 @@ MonoBehaviour:
   - requiredCP: 10
     requiredEnergy: 10
     suspicionRate: 0
+  - requiredCP: 10
+    requiredEnergy: 15
+    suspicionRate: 0
+  - requiredCP: 10
+    requiredEnergy: 20
+    suspicionRate: 0
+  - requiredCP: 20
+    requiredEnergy: 20
+    suspicionRate: 0
   energySystem: {fileID: 520007054}
   currentPhase: 0
-  currentCP: 0
   onPhaseComplete:
     m_PersistentCalls:
       m_Calls: []

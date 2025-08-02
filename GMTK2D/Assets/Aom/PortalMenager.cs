@@ -20,7 +20,6 @@ public class PortalManager : MonoBehaviour
 
     [Header("Portal Progression")]
     public int currentPhase = 0;
-    public int currentCP = 0;
 
     // Events สำหรับแจ้งเตือนเมื่อมีการเปลี่ยนแปลง
     [Header("Events")]
@@ -39,7 +38,7 @@ public class PortalManager : MonoBehaviour
         player.SUS += phases[currentPhase].suspicionRate * Time.deltaTime;
 
         // ตรวจสอบว่ามี CP และ Energy พอที่จะเปลี่ยนเฟสหรือยัง
-        if (currentCP >= phases[currentPhase].requiredCP && energySystem.GetEnergy() >= phases[currentPhase].requiredEnergy)
+        if (player.CP >= phases[currentPhase].requiredCP && energySystem.GetEnergy() >= phases[currentPhase].requiredEnergy)
         {
             AdvancePhase();
         }
@@ -47,7 +46,7 @@ public class PortalManager : MonoBehaviour
 
     public void AddCP(int amount)
     {
-        currentCP += amount;
+        player.CP += amount;
     }
 
     private void AdvancePhase()
@@ -56,7 +55,7 @@ public class PortalManager : MonoBehaviour
         energySystem.RemoveEnergy(phases[currentPhase].requiredEnergy);
 
         currentPhase++;
-        currentCP = 0;
+        player.CP = 0;
 
         if (currentPhase < phases.Length)
         {

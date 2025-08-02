@@ -8,51 +8,41 @@ public enum TimeState
 
 public class DayNightCycle : MonoBehaviour
 {
+    hamter player => FindAnyObjectByType<hamter>();
+    [SerializeField] Pro nightTimer;
     int dayCount = 1;
+    public int DayCount
+    {
+        get => dayCount;
+    }
+    [Header("State")]
     [SerializeField] TimeState state = TimeState.Day;
-    [SerializeField] GameObject stateVisual;
+    public TimeState State
+    {
+        get => state;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        StateVisualize();
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            switch(state)
-            {
-                case TimeState.Day:
-                    EndDay(); 
-                    break;
-                case TimeState.Night:
-                    EndNight();
-                    break;
-            }
-        }
-    }
+        if(player.AP <= 0 && Input.GetKeyDown(KeyCode.Space))
+            EndDay();
 
-    void StateVisualize()
-    {
-        switch (state)
-        {
-            case TimeState.Day:
-                stateVisual.GetComponent<SpriteRenderer>().color = Color.yellow; 
-                break;
-            case TimeState.Night:
-                stateVisual.GetComponent<SpriteRenderer>().color = Color.blue;
-                break;
-        }
+        if(nightTimer.GetTime() <= 0)
+            EndNight();
     }
 
     void EndDay()
     {
+        player.ResetAP();
+        player.SUS -= 10;
         state = TimeState.Night;
     }
 
     void EndNight()
     {
         state = TimeState.Day;
+        nightTimer.ResetTimer();
         dayCount++;
     }
-
-    public int GetDay() => dayCount;
 }

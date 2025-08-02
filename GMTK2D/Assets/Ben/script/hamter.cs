@@ -4,13 +4,13 @@ using System.Collections;
 public class hamter : MonoBehaviour
 {
     public int cp = 0;
-    private int sus = 0;
+    [SerializeField] private int sus = 0;
     public int ap = 3;
 
     public int SUS
     {
         get => sus;
-        private set
+        set
         {
             sus = Mathf.Clamp(value, 0, 100);
         }
@@ -86,4 +86,6 @@ public class hamter : MonoBehaviour
 
         susCoroutine = null;
     }
+
+    public void ResetAP() => AP = 3;
 }

@@ -15,8 +15,6 @@ public class showui : MonoBehaviour
     void Start()
     {
         player.onStatChanged += UpdateTextInstant;
-        currentSusValue = 0;
-        susBar.value = 0;
         UpdateTextInstant();
     }
 

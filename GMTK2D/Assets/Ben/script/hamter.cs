@@ -3,11 +3,20 @@ using System.Collections;
 
 public class hamter : MonoBehaviour
 {
-    public int cp = 0;
-    [SerializeField] private int sus = 0;
+
+    [SerializeField] int cp;
+    public int CP
+    {
+        get => cp;
+        set
+        {
+            cp = Mathf.Max(value,0);
+        }
+    }
+    [SerializeField] private float sus = 0;
     public int ap = 3;
 
-    public int SUS
+    public float SUS
     {
         get => sus;
         set
@@ -31,24 +40,20 @@ public class hamter : MonoBehaviour
 
     private Coroutine susCoroutine = null;
 
-    public void IncreaseSus(int amount)
+    private void Update()
     {
-        if (susCoroutine != null) StopCoroutine(susCoroutine);
-        susCoroutine = StartCoroutine(IncreaseSusSmooth(amount));
+        SUSFull();
     }
 
-    public void DecreaseSus(int amount)
-    {
-        if (susCoroutine != null) StopCoroutine(susCoroutine);
-        susCoroutine = StartCoroutine(DecreaseSusSmooth(amount));
-    }
+    public void IncreaseSus(int amount) => SUS += amount;
 
+    public void DecreaseSus(int amount) => SUS -= amount;
     public void stat(int minCp, int maxCp, int susIncrease)
     {
         if (AP <= 0) return;
 
         int increaseAmount = Random.Range(minCp, maxCp + 1);
-        cp += increaseAmount;
+        CP += increaseAmount;
         AP -= 1;
 
         if (susIncrease > 0)
@@ -57,35 +62,15 @@ public class hamter : MonoBehaviour
             DecreaseSus(-susIncrease);
     }
 
-    private IEnumerator IncreaseSusSmooth(int amount)
-    {
-        int targetSus = SUS + amount;
-        targetSus = Mathf.Clamp(targetSus, 0, 100);
-
-        while (SUS < targetSus)
-        {
-            SUS += 1;
-            onStatChanged?.Invoke();
-            yield return new WaitForSeconds(0.02f);
-        }
-
-        susCoroutine = null;
-    }
-
-    private IEnumerator DecreaseSusSmooth(int amount)
-    {
-        int targetSus = SUS - amount;
-        targetSus = Mathf.Clamp(targetSus, 0, 100);
-
-        while (SUS > targetSus)
-        {
-            SUS -= 1;
-            onStatChanged?.Invoke();
-            yield return new WaitForSeconds(0.02f);
-        }
-
-        susCoroutine = null;
-    }
-
     public void ResetAP() => AP = 3;
+
+    private void SUSFull()
+    {
+        if(SUS >= 100)
+        {
+            Debug.Log("reset");
+            SUS = 0;
+            CP -= 10;
+        }
+    }
 }

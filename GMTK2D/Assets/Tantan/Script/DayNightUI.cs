@@ -1,14 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DayNightUI : MonoBehaviour
 {
     DayNightCycle dnc => FindAnyObjectByType<DayNightCycle>();
     SpecialEventCheck sec => FindAnyObjectByType<SpecialEventCheck>();
+    hamter player => FindAnyObjectByType<hamter>();
 
     [Header("UI Elem")]
     [SerializeField] TextMeshProUGUI dayTxt;
     [SerializeField] GameObject dayUI;
+    [SerializeField] GameObject exploreButt;
+    [SerializeField] GameObject destroyButt;
     [SerializeField] GameObject ActNormButt;
     [SerializeField] GameObject ActNoButt;
     [SerializeField] GameObject nightUI;
@@ -23,6 +27,25 @@ public class DayNightUI : MonoBehaviour
     void Update()
     {
         StateVisualize();
+        ButtonVisualize();
+    }
+
+    void ButtonVisualize()
+    {
+        if(player.AP <= 0)
+        {
+            exploreButt.GetComponent<Button>().interactable = false;
+            destroyButt.GetComponent<Button>().interactable = false;
+            ActNormButt.GetComponent<Button>().interactable = false;
+            ActNoButt.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            exploreButt.GetComponent<Button>().interactable = true;
+            destroyButt.GetComponent<Button>().interactable = true;
+            ActNormButt.GetComponent<Button>().interactable = true;
+            ActNoButt.GetComponent<Button>().interactable = true;
+        }
     }
 
     void StateVisualize()
@@ -39,6 +62,8 @@ public class DayNightUI : MonoBehaviour
                 ActNormalEvent();
                 break;
         }
+
+        dayTxt.text = $"Day : {dnc.DayCount}";
     }
 
     void ActNormalEvent()

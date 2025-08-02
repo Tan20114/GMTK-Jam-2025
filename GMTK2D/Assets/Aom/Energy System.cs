@@ -4,9 +4,11 @@ using TMPro;
 
 public class EnergySystemUI : MonoBehaviour
 {
+    PortalManager pm => FindAnyObjectByType<PortalManager>();
     public Slider energySlider;
-    public Text energyText;
-    public float maxEnergy = 50f;
+    public TextMeshProUGUI energyText;
+    [SerializeField] TextMeshProUGUI phaseShow;
+    public float maxEnergy;
 
     private float currentEnergy = 0f;
 
@@ -20,6 +22,7 @@ public class EnergySystemUI : MonoBehaviour
     {
         // เรียกใช้ฟังก์ชันนี้ในทุกเฟรมเพื่อให้ UI อัปเดตตลอดเวลา
         UpdateUI();
+        maxEnergy = pm.phases[pm.currentPhase].requiredEnergy;
     }
 
     // ฟังก์ชันสำหรับเพิ่มพลังงาน
@@ -51,7 +54,6 @@ public class EnergySystemUI : MonoBehaviour
         if (energySlider != null)
         {
             energySlider.minValue = 0f;
-            energySlider.maxValue = maxEnergy;
             energySlider.value = currentEnergy;
         }
 
@@ -64,10 +66,13 @@ public class EnergySystemUI : MonoBehaviour
     private void UpdateUI()
     {
         if (energySlider != null)
-            energySlider.value = currentEnergy;
+            energySlider.value = currentEnergy/maxEnergy;
 
         if (energyText != null)
             // ใช้ string.Format เพื่อจัดรูปแบบข้อความให้ดูสวยงามขึ้น
             energyText.text = $"Energy: {Mathf.Floor(currentEnergy)} / {maxEnergy}";
+
+        if (phaseShow != null)
+            phaseShow.text = $"Current phase : {pm.currentPhase}";
     }
 }

@@ -3,6 +3,9 @@
 // สคริปต์สำหรับจัดการความเร็วและเพิ่มพลังงาน
 public class SpeedSelector : MonoBehaviour
 {
+    hamter player => FindAnyObjectByType<hamter>();
+    DayNightCycle dnc => FindAnyObjectByType<DayNightCycle>();
+
     // กำหนดประเภทความเร็ว
     public enum SpeedType { Slow, Fast, Super }
 
@@ -27,7 +30,6 @@ public class SpeedSelector : MonoBehaviour
     public SpeedSetting superSpeed = new SpeedSetting { energyInterval = 2f, suspicionPerSecond = 4f };
 
     private float timer = 0f;
-    private float suspicion = 0f;
 
     // Awake() จะทำงานก่อน Start() และเหมาะสำหรับการตั้งค่าเริ่มต้น
     void Awake()
@@ -40,6 +42,12 @@ public class SpeedSelector : MonoBehaviour
     }
 
     void Update()
+    {
+        if(dnc.State == TimeState.Night)
+            SpeedUpdate();
+    }
+
+    void SpeedUpdate()
     {
         // ถ้าไม่มี EnergySystemUI ก็ไม่ต้องทำอะไรต่อ
         if (energySystem == null)
@@ -72,7 +80,7 @@ public class SpeedSelector : MonoBehaviour
         }
 
         // เพิ่มค่าความน่าสงสัยตามที่กำหนดไว้
-        suspicion += activeSetting.suspicionPerSecond * Time.deltaTime;
+        player.SUS += activeSetting.suspicionPerSecond * Time.deltaTime;
     }
 
     // ฟังก์ชันสำหรับเปลี่ยนความเร็วจากภายนอก (เช่น จากปุ่ม UI)

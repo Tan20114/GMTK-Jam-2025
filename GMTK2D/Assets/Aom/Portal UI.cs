@@ -4,6 +4,8 @@ using TMPro; // ถ้าใช้ TextMeshPro
 
 public class PortalUI : MonoBehaviour
 {
+    hamter player => FindAnyObjectByType<hamter>();
+
     [Header("UI References")]
     public Slider progressBar;
     public TextMeshProUGUI cpText; // ใช้ TextMeshProUGUI ถ้าใช้ TextMeshPro
@@ -37,7 +39,6 @@ public class PortalUI : MonoBehaviour
         // กำหนดค่า Max Value ของ Slider ตาม CP ที่ต้องใช้ในเฟสแรก
         if (portalManager.phases.Length > 0 && progressBar != null)
         {
-            progressBar.maxValue = portalManager.phases[0].requiredCP;
             progressBar.value = 0;
         }
     }
@@ -57,8 +58,7 @@ public class PortalUI : MonoBehaviour
             // อัปเดต Progress Bar
             if (progressBar != null)
             {
-                progressBar.maxValue = currentPhaseData.requiredCP;
-                progressBar.value = portalManager.currentCP;
+                progressBar.value = portalManager.currentCP/currentPhaseData.requiredCP;
             }
 
             // อัปเดต Text ของ CP
@@ -78,7 +78,7 @@ public class PortalUI : MonoBehaviour
             if (suspicionText != null)
             {
                 // ใช้ Mathf.Floor เพื่อให้แสดงผลเป็นจำนวนเต็ม
-                suspicionText.text = $"Suspicion: {Mathf.Floor(portalManager.currentSuspicion)}";
+                suspicionText.text = $"Suspicion: {Mathf.Floor(player.SUS)}";
             }
         }
         else // ถ้าเฟสเสร็จสมบูรณ์หมดแล้ว

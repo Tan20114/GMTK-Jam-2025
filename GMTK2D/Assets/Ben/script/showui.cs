@@ -10,23 +10,18 @@ public class showui : MonoBehaviour
     public Slider susBar;
 
     private float currentSusValue = 0f;
-    public float smoothSpeed = 30f;
-
-    void Start()
-    {
-        player.onStatChanged += UpdateTextInstant;
-        UpdateTextInstant();
-    }
+    public float smoothSpeed = 100f;
 
     void Update()
     {
         currentSusValue = Mathf.MoveTowards(currentSusValue, player.SUS, smoothSpeed * Time.deltaTime);
         susBar.value = currentSusValue;
+        UpdateTextInstant();
     }
 
     void UpdateTextInstant()
     {
-        cpText.text = "CP: " + player.cp;
+        cpText.text = "CP: " + player.CP;
         apText.text = "AP: " + ((player.AP >= 0) ? player.AP : 0);
     }
 }

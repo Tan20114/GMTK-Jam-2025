@@ -3,6 +3,8 @@ using UnityEngine.Events; // เพิ่ม namespace นี้เพื่อ�
 
 public class PortalManager : MonoBehaviour
 {
+    hamter player => FindAnyObjectByType<hamter>();
+    
     // คลาสสำหรับเก็บข้อมูลการตั้งค่าแต่ละเฟส
     [System.Serializable]
     public class PortalPhase
@@ -19,7 +21,6 @@ public class PortalManager : MonoBehaviour
     [Header("Portal Progression")]
     public int currentPhase = 0;
     public int currentCP = 0;
-    public float currentSuspicion = 0f;
 
     // Events สำหรับแจ้งเตือนเมื่อมีการเปลี่ยนแปลง
     [Header("Events")]
@@ -35,7 +36,7 @@ public class PortalManager : MonoBehaviour
         }
 
         // เพิ่มค่าความน่าสงสัยตามอัตราของเฟสปัจจุบัน
-        currentSuspicion += phases[currentPhase].suspicionRate * Time.deltaTime;
+        player.SUS += phases[currentPhase].suspicionRate * Time.deltaTime;
 
         // ตรวจสอบว่ามี CP และ Energy พอที่จะเปลี่ยนเฟสหรือยัง
         if (currentCP >= phases[currentPhase].requiredCP && energySystem.GetEnergy() >= phases[currentPhase].requiredEnergy)

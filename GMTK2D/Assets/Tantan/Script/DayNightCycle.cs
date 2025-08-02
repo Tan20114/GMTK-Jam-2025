@@ -37,7 +37,7 @@ public class DayNightCycle : MonoBehaviour
     void EndDay()
     {
         player.ResetAP();
-        player.SUS -= 10;
+        player.SUS -= 10f;
         state = TimeState.Night;
     }
 

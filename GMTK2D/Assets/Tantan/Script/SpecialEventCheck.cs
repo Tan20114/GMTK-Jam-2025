@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SpecialEventCheck : MonoBehaviour
@@ -24,39 +25,42 @@ public class SpecialEventCheck : MonoBehaviour
     {
         if(exploreConsectCount >= 3 ||  destroyConsectCount >= 3 || actNormalCount >= 3)
         {
-            player.SUS += 10;
             exploreConsectCount = 0;
             destroyConsectCount = 0;
             actNormalCount = 0;
+            player.SUS += 10;
         }
     }
 
     public void ExConsecutiveCount()
     {
-        if(player.AP <= 0) return;
-
-        exploreConsectCount++;
-        destroyConsectCount = 0;
-        actNormalCount = 0;
+        if(player.AP >= 0)
+        {
+            exploreConsectCount++;
+            destroyConsectCount = 0;
+            actNormalCount = 0;
+        }
     }
 
     public void DesConsecutiveCount()
     {
-        if(player.AP <= 0) return;
-
-        exploreConsectCount = 0;
-        destroyConsectCount++;
-        actNormalCount = 0;
+        if(player.AP >= 0)
+        {
+            exploreConsectCount = 0;
+            destroyConsectCount++;
+            actNormalCount = 0;
+        }
     }
 
     public void ActConsecutiveCount()
     {
-        if (player.AP <= 0) return;
-
-        exploreConsectCount = 0;
-        destroyConsectCount = 0;
-        actNormalCount++;
+        if (player.AP >= 0)
+        {
+            exploreConsectCount = 0;
+            destroyConsectCount = 0;
+            actNormalCount++;
+        }
     }
 
-    public bool RandomNormalAction() => Random.Range(0, 101) > 70;
+    public bool RandomNormalAction() => Random.Range(0, 101) > 90;
 }

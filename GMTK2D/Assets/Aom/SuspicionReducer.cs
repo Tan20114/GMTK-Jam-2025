@@ -2,6 +2,9 @@
 
 public class SuspicionReducer : MonoBehaviour
 {
+    hamter player => FindAnyObjectByType<hamter>();
+    DayNightCycle dnc => FindAnyObjectByType<DayNightCycle>();
+
     [Header("Reduction Settings")]
     public float susReductionInterval = 5f; // ลด SUS ทุกๆ 5 วินาที
     public float susReductionAmount = 5f;   // ลดครั้งละ 5 หน่วย
@@ -23,18 +26,21 @@ public class SuspicionReducer : MonoBehaviour
 
     void Update()
     {
-        if (portalManager == null)
-            return;
+        if (dnc.State == TimeState.Night)
+            SUSReduction();
+    }
 
+    void SUSReduction()
+    {
         // เราจะลดค่า SUS ก็ต่อเมื่อค่า SUS ยังมากกว่า 0
-        if (portalManager.currentSuspicion > 0)
+        if (player.SUS > 0)
         {
             susReductionTimer += Time.deltaTime;
 
             if (susReductionTimer >= susReductionInterval)
             {
-                portalManager.currentSuspicion -= susReductionAmount;
-                portalManager.currentSuspicion = Mathf.Max(0, portalManager.currentSuspicion); // ป้องกันค่าติดลบ
+                player.SUS -= susReductionAmount;
+                player.SUS = Mathf.Max(0, player.SUS); // ป้องกันค่าติดลบ
                 susReductionTimer -= susReductionInterval;
             }
         }
@@ -43,5 +49,5 @@ public class SuspicionReducer : MonoBehaviour
             // ถ้าค่า SUS เป็น 0 หรือติดลบ ให้รีเซ็ต Timer
             susReductionTimer = 0;
         }
-    }
+    }    
 }

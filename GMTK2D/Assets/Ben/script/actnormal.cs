@@ -9,4 +9,6 @@ public class actnormal : MonoBehaviour
     public int susIncrease = -10;
 
     public void statup() => player.stat(minCp, maxCp, susIncrease);
+
+    public void StatDown() => player.stat(0, 0, 10);
 }

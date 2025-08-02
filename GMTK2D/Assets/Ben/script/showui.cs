@@ -27,7 +27,6 @@ public class showui : MonoBehaviour
     void UpdateTextInstant()
     {
         cpText.text = "CP: " + player.cp;
-        apText.text = "AP: " + player.AP;
-        
+        apText.text = "AP: " + ((player.AP >= 0) ? player.AP : 0);
     }
 }

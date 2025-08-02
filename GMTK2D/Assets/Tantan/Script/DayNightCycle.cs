@@ -9,7 +9,9 @@ public enum TimeState
 public class DayNightCycle : MonoBehaviour
 {
     hamter player => FindAnyObjectByType<hamter>();
+    [Header("Reference")]
     [SerializeField] Pro nightTimer;
+
     int dayCount = 1;
     public int DayCount
     {

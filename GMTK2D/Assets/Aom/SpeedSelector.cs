@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+public enum SpeedType { Slow, Fast, Super }
 
 // สคริปต์สำหรับจัดการความเร็วและเพิ่มพลังงาน
 public class SpeedSelector : MonoBehaviour
@@ -7,7 +8,6 @@ public class SpeedSelector : MonoBehaviour
     DayNightCycle dnc => FindAnyObjectByType<DayNightCycle>();
 
     // กำหนดประเภทความเร็ว
-    public enum SpeedType { Slow, Fast, Super }
 
     [Header("ตั้งค่าหลัก")]
     [Tooltip("ความเร็วปัจจุบันที่ใช้ในการสร้างพลังงาน")]

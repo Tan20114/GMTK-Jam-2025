@@ -8,6 +8,7 @@ public enum TimeState
 
 public class DayNightCycle : MonoBehaviour
 {
+    SpeedSelector ss => FindAnyObjectByType<SpeedSelector>();
     hamter player => FindAnyObjectByType<hamter>();
     [Header("Reference")]
     [SerializeField] Pro nightTimer;
@@ -45,6 +46,7 @@ public class DayNightCycle : MonoBehaviour
     {
         state = TimeState.Day;
         nightTimer.ResetTimer();
+        ss.currentSpeed = SpeedType.Slow;
         dayCount++;
     }
 }

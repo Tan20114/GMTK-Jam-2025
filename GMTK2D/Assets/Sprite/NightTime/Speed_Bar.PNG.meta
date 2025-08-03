@@ -116,45 +116,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Speed_Bar_0
-      rect:
-        serializedVersion: 2
-        x: 1756
-        y: 385
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a8e9c8291ee8f7990800000000000000
-      internalID: -7386027764386849142
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Speed_Bar_1
       rect:
         serializedVersion: 2
-        x: 1218
-        y: 215
-        width: 510
-        height: 141
+        x: 1219
+        y: 284
+        width: 499
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1545e0657b08a0590800000000000000
-      internalID: -7707206287380032431
+      spriteID: c243bef51bd3e454990cd12e6af3039d
+      internalID: 701335254
       vertices: []
       indices: 
       edges: []
@@ -163,7 +141,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8662ce275fd088e40b66005cd8957974
     internalID: 0
     vertices: []
     indices: 
@@ -172,7 +150,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Speed_Bar_0: -1309845826
+      Speed_Bar_1: 701335254
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

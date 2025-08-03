@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.Events; // เพิ่ม namespace นี้เพื่อใช้ UnityEvent
 
 public class PortalManager : MonoBehaviour
@@ -26,6 +27,8 @@ public class PortalManager : MonoBehaviour
     public UnityEvent onPhaseComplete;
     public UnityEvent onAllPhasesComplete;
 
+    [SerializeField] GameObject endGameUI;
+
     void Update()
     {
         // ถ้าไม่มี EnergySystem หรือทุกเฟสเสร็จสิ้นแล้ว ก็ไม่ต้องทำอะไร
@@ -42,6 +45,8 @@ public class PortalManager : MonoBehaviour
         {
             AdvancePhase();
         }
+
+        EndGame();
     }
 
     public void AddCP(int amount)
@@ -68,4 +73,17 @@ public class PortalManager : MonoBehaviour
             onAllPhasesComplete.Invoke();
         }
     }
+
+    bool isEnd = false;
+
+    void EndGame()
+    {
+        if(currentPhase >= 5 && !isEnd)
+        {
+            isEnd = true;
+            endGameUI.SetActive(true);
+        }
+    }
+
+    public void ExitGame() => Application.Quit();
 }

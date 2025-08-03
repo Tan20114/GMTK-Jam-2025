@@ -6,6 +6,7 @@ public class SpeedSelector : MonoBehaviour
 {
     hamter player => FindAnyObjectByType<hamter>();
     DayNightCycle dnc => FindAnyObjectByType<DayNightCycle>();
+    EnergySystemUI es => FindAnyObjectByType<EnergySystemUI>();
 
     // กำหนดประเภทความเร็ว
 
@@ -16,6 +17,9 @@ public class SpeedSelector : MonoBehaviour
     [Tooltip("ระบบ UI ที่ใช้แสดงและจัดการพลังงาน")]
     public EnergySystemUI energySystem;
 
+    [Header("Animator")]
+    [SerializeField] Animator wheel;
+    [SerializeField] Animator run;
     // คลาสสำหรับเก็บข้อมูลการตั้งค่าความเร็วแต่ละประเภท
     
     public class SpeedSetting
@@ -44,7 +48,10 @@ public class SpeedSelector : MonoBehaviour
     void Update()
     {
         if(dnc.State == TimeState.Night)
+        {
             SpeedUpdate();
+            SetSpeed();
+        }
     }
 
     void SpeedUpdate()
@@ -84,16 +91,28 @@ public class SpeedSelector : MonoBehaviour
     }
 
     // ฟังก์ชันสำหรับเปลี่ยนความเร็วจากภายนอก (เช่น จากปุ่ม UI)
-    public void SetSpeed(int index)
+    public void SetSpeed()
     {
-        try
+        if (dnc.State == TimeState.Night)
         {
-            currentSpeed = (SpeedType)index;
-        }
-        catch
-        {
-            // แสดงข้อผิดพลาดใน Console ถ้า index ไม่ถูกต้อง
-            Debug.LogError("Index ความเร็วไม่ถูกต้อง! กรุณาตรวจสอบว่า index ตรงกับ SpeedType หรือไม่");
+            switch (es.speedSlider.value)
+            {
+                case 0:
+                    currentSpeed = SpeedType.Slow;
+                    wheel.SetFloat("speed", 1);
+                    run.SetFloat("speed", 1);
+                    break;
+                case 1:
+                    currentSpeed = SpeedType.Fast;
+                    wheel.SetFloat("speed", 2);
+                    run.SetFloat("speed", 2);
+                    break;
+                case 2:
+                    currentSpeed = SpeedType.Super;
+                    wheel.SetFloat("speed", 5);
+                    run.SetFloat("speed", 5);
+                    break;
+            }
         }
     }
 }

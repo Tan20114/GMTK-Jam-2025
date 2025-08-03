@@ -1,12 +1,19 @@
+using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DayNightUI : MonoBehaviour
 {
+    EventTrigger et => FindAnyObjectByType<EventTrigger>();
     DayNightCycle dnc => FindAnyObjectByType<DayNightCycle>();
     SpecialEventCheck sec => FindAnyObjectByType<SpecialEventCheck>();
     hamter player => FindAnyObjectByType<hamter>();
+
+    bool isGameStart = false;
+
+    [SerializeField] Animator a;
 
     [Header("UI Elem")]
     [SerializeField] TextMeshProUGUI dayTxt;
@@ -16,6 +23,10 @@ public class DayNightUI : MonoBehaviour
     [SerializeField] GameObject ActNormButt;
     [SerializeField] GameObject ActNoButt;
     [SerializeField] GameObject nightUI;
+    [SerializeField] GameObject SpaceToEnd;
+
+    [Header("BG Elem")]
+    [SerializeField] Image[] BG;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,13 +37,25 @@ public class DayNightUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StateVisualize();
-        ButtonVisualize();
+        if(isGameStart)
+        {
+            StateVisualize();
+            ButtonVisualize();
+        }
+
+        if(player.AP <= 0)
+        {
+            SpaceToEnd.SetActive(true);
+        }
+        else
+        {
+            SpaceToEnd.SetActive(false);
+        }
     }
 
     void ButtonVisualize()
     {
-        if(player.AP <= 0)
+        if(player.AP <= 0 || et.isEvent)
         {
             exploreButt.GetComponent<Button>().interactable = false;
             destroyButt.GetComponent<Button>().interactable = false;
@@ -55,10 +78,14 @@ public class DayNightUI : MonoBehaviour
             case TimeState.Day:
                 dayUI.SetActive(true);
                 nightUI.SetActive(false);
+                foreach (Image i in BG)
+                    i.color = Color.white;
                 break;
             case TimeState.Night:
                 dayUI.SetActive(false);
                 nightUI.SetActive(true);
+                foreach (Image i in BG)
+                    i.color = new Color(.15f,.3f,.65f,1);
                 ActNormalEvent();
                 break;
         }
@@ -66,7 +93,7 @@ public class DayNightUI : MonoBehaviour
         dayTxt.text = $"Day : {dnc.DayCount}";
     }
 
-    void ActNormalEvent()
+    public void ActNormalEvent()
     {
         if (sec.RandomNormalAction())
         {
@@ -78,5 +105,16 @@ public class DayNightUI : MonoBehaviour
             ActNoButt.SetActive(false);
             ActNormButt.SetActive(true);
         }
+    }
+
+    void StartGame() => isGameStart = true;
+
+    public void OnStart() => StartCoroutine(StartAnim());
+
+    IEnumerator StartAnim()
+    {
+        a.SetTrigger("start");
+        yield return new WaitForSeconds(1);
+        StartGame();
     }
 }

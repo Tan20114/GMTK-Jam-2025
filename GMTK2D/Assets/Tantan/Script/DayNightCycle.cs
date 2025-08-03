@@ -13,6 +13,8 @@ public class DayNightCycle : MonoBehaviour
     [Header("Reference")]
     [SerializeField] Pro nightTimer;
 
+    [SerializeField] Animator wheel;
+
     int dayCount = 1;
     public int DayCount
     {
@@ -31,22 +33,26 @@ public class DayNightCycle : MonoBehaviour
         if(player.AP <= 0 && Input.GetKeyDown(KeyCode.Space))
             EndDay();
 
-        if(nightTimer.GetTime() <= 0)
+        if(nightTimer.TimeOuted())
             EndNight();
     }
 
     void EndDay()
     {
+        Debug.Log("EndDay");
         player.ResetAP();
         player.SUS -= 10f;
         state = TimeState.Night;
+        wheel.SetBool("isNight", true);
     }
 
     void EndNight()
     {
+        Debug.Log("EndNight");
         state = TimeState.Day;
         nightTimer.ResetTimer();
         ss.currentSpeed = SpeedType.Slow;
+        wheel.SetBool("isNight", false);
         dayCount++;
     }
 }

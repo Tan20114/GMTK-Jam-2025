@@ -8,6 +8,7 @@ public class EnergySystemUI : MonoBehaviour
     public Slider energySlider;
     public TextMeshProUGUI energyText;
     [SerializeField] TextMeshProUGUI phaseShow;
+    public Slider speedSlider;
     public float maxEnergy;
 
     private float currentEnergy = 0f;
@@ -22,7 +23,8 @@ public class EnergySystemUI : MonoBehaviour
     {
         // เรียกใช้ฟังก์ชันนี้ในทุกเฟรมเพื่อให้ UI อัปเดตตลอดเวลา
         UpdateUI();
-        maxEnergy = pm.phases[pm.currentPhase].requiredEnergy;
+        if(pm.currentPhase <= 4)
+            maxEnergy = pm.phases[pm.currentPhase].requiredEnergy;
     }
 
     // ฟังก์ชันสำหรับเพิ่มพลังงาน
@@ -73,6 +75,6 @@ public class EnergySystemUI : MonoBehaviour
             energyText.text = $"Energy: {Mathf.Floor(currentEnergy)} / {maxEnergy}";
 
         if (phaseShow != null)
-            phaseShow.text = $"Current phase : {pm.currentPhase}";
+            phaseShow.text = $"Portal phase : {pm.currentPhase}";
     }
 }

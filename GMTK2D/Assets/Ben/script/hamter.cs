@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 
 public class hamter : MonoBehaviour
 {
+    EventTrigger et => FindAnyObjectByType<EventTrigger>();
     PortalManager pm => FindAnyObjectByType<PortalManager>();
     EnergySystemUI es => FindAnyObjectByType<EnergySystemUI>(); 
 
@@ -51,8 +52,6 @@ public class hamter : MonoBehaviour
     public void DecreaseSus(int amount) => SUS -= amount;
     public void stat(int minCp, int maxCp, int susIncrease)
     {
-        if (AP <= 0) return;
-
         int increaseAmount = Random.Range(minCp, maxCp + 1);
         CP += increaseAmount;
         AP -= 1;
@@ -69,6 +68,7 @@ public class hamter : MonoBehaviour
     {
         if(SUS >= 100)
         {
+            et.SUS();
             if(pm.currentPhase > 0)
             {
                 if(!es.IsEnergyFull())
@@ -83,6 +83,7 @@ public class hamter : MonoBehaviour
                     es.RemoveEnergy(es.GetEnergy());
                 }
             }
+            es.RemoveEnergy(es.GetEnergy());
             SUS = 0;
         }
     }

@@ -121,7 +121,7 @@ TextureImporter:
         width: 810
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,11 +134,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Enegy_Meter_1
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 132
+        width: 779
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07a0abebf3240734a9b52b2b1713c15f
+      internalID: 317624948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: da0b2679c4d4b8142bd2067ea368969e
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +169,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Enegy_Meter_1: 317624948
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

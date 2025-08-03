@@ -21,7 +21,7 @@ public class showui : MonoBehaviour
 
     void UpdateTextInstant()
     {
-        cpText.text = "CP: " + player.CP;
-        apText.text = "AP: " + ((player.AP >= 0) ? player.AP : 0);
+        cpText.text = player.CP.ToString();
+        apText.text = ((player.AP >= 0) ? player.AP : 0).ToString();
     }
 }

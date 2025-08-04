@@ -8,6 +8,7 @@ public class EventTrigger : MonoBehaviour
     public bool isEvent = false;
     [SerializeField] AnimationClip[] outClip;
     [SerializeField] float animTime = 0;
+    [SerializeField] AudioClip[] sClip;
 
     public void Des() => StartCoroutine(DestroyTrigger());
     public void Ex() => StartCoroutine(ExploreTrigger());
@@ -20,6 +21,7 @@ public class EventTrigger : MonoBehaviour
         if(player.SUS < 75)
         {
             trigger.SetTrigger("Des");
+            SFXManager.instance.PlaySFXClip(sClip[0]);
             isEvent = true;
             yield return new WaitForSeconds(animTime);
             trigger.SetTrigger("DesOut");
@@ -33,6 +35,7 @@ public class EventTrigger : MonoBehaviour
         if (player.SUS < 90)
         {
             trigger.SetTrigger("Ex");
+            SFXManager.instance.PlaySFXClip(sClip[1]);
             isEvent = true;
             yield return new WaitForSeconds(animTime);
             trigger.SetTrigger("ExOut");
@@ -46,6 +49,7 @@ public class EventTrigger : MonoBehaviour
         if (player.SUS < 90)
         {
             trigger.SetTrigger("No");
+            SFXManager.instance.PlaySFXClip(sClip[2]);
             isEvent = true;
             yield return new WaitForSeconds(animTime);
             trigger.SetTrigger("NoOut");
@@ -59,6 +63,7 @@ public class EventTrigger : MonoBehaviour
         if (player.SUS < 100)
         {
             trigger.SetTrigger("Nor");
+            SFXManager.instance.PlaySFXClip(sClip[2]);
             isEvent = true;
             yield return new WaitForSeconds(animTime);
             trigger.SetTrigger("NorOut");
